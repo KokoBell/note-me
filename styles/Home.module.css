@@ -9,16 +9,10 @@
   justify-content: center;
 }
 
-.rightSide {
-  padding-left: 3rem;
-  width: 100%;
-  background-color: blueviolet;
-}
-
 .heroImage {
   padding-top: 6rem;
-  padding-left: 25%;
-  padding-right: 25%;
+  display: flex;
+  justify-content: center;
 }
 
 .textGroup {
@@ -32,4 +26,99 @@
 
 .textGroup p {
   color: grey;
+}
+
+.rightSide {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.logoImage {
+  display: flex;
+  justify-content: center;
+  padding-top: 7.8rem;
+}
+
+.googleButton {
+  display: flex;
+  justify-content: center;
+  padding-top: 2rem;
+}
+
+.joinWithGoogle {
+  width: 14rem;
+  height: 2.2rem;
+  background-color: #F7685C;
+}
+
+button.joinWithGoogle {
+  font-size: 0.8rem;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-family: Ubuntu;
+  font-weight: 500;
+}
+
+button.joinWithGoogle:hover {
+  cursor: pointer;
+}
+
+.joinButton {
+  display: flex;
+  justify-content: center;
+  padding-top: 2rem;
+}
+
+button.joinAnonymous {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8rem;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-family: Ubuntu;
+  font-weight: 500;
+}
+
+.joinAnonymous {
+  width: 14rem;
+  height: 2.2rem;
+  background-color: #30C58D;
+}
+
+button.joinAnonymous:hover {
+  cursor: pointer;
+}
+
+.FiLogIn {
+  font-size: 1rem;
+}
+
+.joinSection {
+  display: flex;
+  justify-content: center;
+  padding-top: 0.8rem;
+}
+
+.joinSection p {
+  font-size: 0.8rem;
+  color: gray;
+}
+
+.codeInput {
+  display: flex;
+  justify-content: center;
+  padding-top: 0.8rem;
+}
+
+.codeInput input {
+  border-radius: 8px;
+  border: 2px solid #A8A8B3;
+  font-family: Ubuntu;
+  width: 14rem;
+  height: 2.2rem;
+  padding: 12px 20px;
 }

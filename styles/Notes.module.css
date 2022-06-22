@@ -1,0 +1,33 @@
+/* :root {
+    font-size: 1rem;
+    font-family: Ubuntu;
+    --text-primary: #3C3D43;
+    --text-secondary: #FFFFFF;
+    --opaque-lilac: rgba(182, 165, 203, 0.4);
+    --oqaque-orange: rgba(253,186,163,0.4);
+    --opaque-yellow: rgba(251,235,149,0.4);
+} */
+
+.saveBtn{
+    width: 15rem;
+    height: 2rem;
+    cursor: pointer;
+    background-color: rgb(119, 27, 27);
+    color: whitesmoke;
+    border: rgb(119, 27, 27);
+    font-family: 'Roboto';
+}
+
+.notesPage {
+    background-color: white;
+    color: #3C3D43;
+    margin-left: 8rem;
+}
+
+.helloText {
+    font-weight: 400;
+}
+
+.notesPageContainer {
+    display: flex;
+}

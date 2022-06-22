@@ -1,0 +1,24 @@
+.Navigation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 5rem;
+    height: 100vh;
+    position: fixed;
+    background-color: white;
+    list-style: none;
+}
+
+.navButton {
+    padding: 0.4rem;
+    font-size: 1.5rem;
+    color: #3C3D43;
+}
+
+.lastButton {
+    padding: 0.4rem;
+    font-size: 1.5rem;
+    color: #3C3D43;
+    margin-top: 12rem;
+}
