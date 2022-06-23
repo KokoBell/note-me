@@ -61,7 +61,7 @@ export default function Home() {
           <div className={styles.googleButton}>
 
             <div>
-              <button className={styles.joinWithGoogle} onClick={() => { signIn( "google" , { callbackUrl: "http://localhost:3000/notes" }) }}>
+              <button className={styles.joinWithGoogle} onClick={() => { signIn( "google" , { callbackUrl: "https://note-me-three.vercel.app/notes" }) }}>
                 <FaGoogle /> &nbsp;
                 Join with Google
               </button>
