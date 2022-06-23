@@ -23,13 +23,13 @@ export default function Home() {
         <div className={styles.leftSide}>
 
           <div className={styles.heroImage}>
-            <Image
+            <img
               src="/images/guy.png"
               height={211}
               width={260}
               alt={"Person relaxing while drinking coffee and using their laptop"}>
 
-            </Image>
+            </img>
           </div>
 
           <div className={styles.textGroup}>
