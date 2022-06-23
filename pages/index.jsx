@@ -49,13 +49,13 @@ export default function Home() {
         <div className={styles.rightSide}>
 
           <div className={styles.logoImage}>
-            <Image
+            <img
               src="/images/logo.png"
               height={60}
               width={290}
               alt={"NoteMe logo image"}>
 
-            </Image>
+            </img>
           </div>
 
           <div className={styles.googleButton}>
