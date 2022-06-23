@@ -6,8 +6,6 @@ import styles from '../styles/Home.module.css'
 import { FaGoogle } from 'react-icons/fa'
 import { FiLogIn } from 'react-icons/fi'
 import { useRouter } from 'next/router'
-import NotesPage from './notes'
-
 
 export default function Home() {
   return <HomePage />
@@ -37,7 +35,6 @@ function HomePage() {
             height={211}
             width={260}
             alt={"Person relaxing while drinking coffee and using their laptop"}>
-
           </Image>
         </div>
 
@@ -63,7 +60,6 @@ function HomePage() {
             height={60}
             width={290}
             alt={"NoteMe logo image"}>
-
           </Image>
         </div>
 
@@ -112,4 +108,3 @@ function HomePage() {
     </div>
   </>)
 }
-
