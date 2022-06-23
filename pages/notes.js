@@ -71,7 +71,7 @@ export default function NotesPage() {
 
                     {notesList.map((note) => {
                         return (
-                            <Draggable key={note.note.id}>
+                            <Draggable key={note.note._id}>
                                 <div
                                     className={styles.noteCard}
                                     onKeyPress={(ev) => {
