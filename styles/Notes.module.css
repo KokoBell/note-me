@@ -1,13 +1,3 @@
-/* :root {
-    font-size: 1rem;
-    font-family: Ubuntu;
-    --text-primary: #3C3D43;
-    --text-secondary: #FFFFFF;
-    --opaque-lilac: rgba(182, 165, 203, 0.4);
-    --oqaque-orange: rgba(253,186,163,0.4);
-    --opaque-yellow: rgba(251,235,149,0.4);
-} */
-
 .saveBtn{
     width: 15rem;
     height: 2rem;
@@ -30,4 +20,40 @@
 
 .notesPageContainer {
     display: flex;
+}
+
+.notesSection {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.noteCard {
+    height: 12rem;
+    width: 12rem;
+    background-color: wheat;
+    border-radius: 0.5rem;
+    padding-top: 0;
+    font-size: 1rem;
+    font-weight: 500;
+    padding-right: 1rem;
+    padding-left: 1.4rem;
+    margin-right: 1.4rem;
+    margin-top: 1.4rem;
+}
+
+input.noteCard {
+    border: none;
+}
+
+.noteCard:focus {
+    outline: none;
+    font-family: Ubuntu;
+}
+
+
+.notesDescContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
 }

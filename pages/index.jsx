@@ -8,11 +8,15 @@ import { FiLogIn } from 'react-icons/fi'
 import { useRouter } from 'next/router'
 
 export default function Home() {
+  const router = useRouter()
+  const { data: session } = useSession()
+  if(session){
+    router.push('/notes')
+  }
   return <HomePage />
 }
 
 function HomePage() {
-  const router = useRouter()
   async function userSignIn() {
     await signIn("google", { callbackUrl: "/notes" })    
   }
