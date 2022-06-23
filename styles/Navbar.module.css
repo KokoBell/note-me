@@ -4,34 +4,48 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     width: 5rem;
     height: 100vh;
     position: fixed;
     background-color: white;
     list-style: none;
+    box-shadow: 0px 10px 6px grey;
 }
 
 .navItem {
-    color: #3C3D43;
+    color: lightgrey;
     width: 5rem;
 }
 
 .navButton {
     display: flex;
     align-items: center;
+    justify-content: center;
     height: 5rem;
     width: 5rem;
     border: none;
-    font-size: 1rem;
+    font-size: 1.2rem;
     background-color: white;
+    color: #808080;
 }
 
-.navItem:hover, .navButton:hover {
-    background-color: wheat;
+.navButtonActive {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 5rem;
+    width: 5rem;
+    border: none;
+    font-size: 1.2rem;
+    background-color: white;
+    color: #343539;
+    border-left-style: solid;
+    border-width: 0.4rem;
 }
 
-.navItem:first-child {
-    border-left: 0.25rem solid black;
+.logoutButton {
+    padding-bottom: 1.2rem;
 }
+
 
