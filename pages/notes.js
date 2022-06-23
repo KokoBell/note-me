@@ -71,9 +71,8 @@ export default function NotesPage() {
 
                     {notesList.map((note) => {
                         return (
-                            <Draggable>
+                            <Draggable key={note.note.id}>
                                 <div
-                                    key={note.noteDesc}
                                     className={styles.noteCard}
                                     onKeyPress={(ev) => {
                                         if (ev.key === "Enter") {
