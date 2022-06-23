@@ -8,16 +8,21 @@ export default function Navbar() {
 
     return <div >
         <ul className={styles.Navigation}>
-            <li className={styles.navButton}>
-                <FaHome />
+            <li className={styles.navItem}>
+                <button className={styles.navButton}>
+                    <FaHome />
+                </button>
             </li>
-            <li className={styles.navButton}>
-
-                <FaPlus />
+            <li className={styles.navItem}>
+                <button className={styles.navButton}>
+                    <FaPlus />
+                </button>
 
             </li>
-            <li className={styles.lastButton}>
-                <FiLogOut />
+            <li className={styles.navItem}>
+                <button className={styles.navButton}>
+                    <FiLogOut />
+                </button>
             </li>
         </ul>
     </div>
