@@ -41,15 +41,22 @@
     margin-top: 1.4rem;
 }
 
-input.noteCard {
+textarea.noteCard {
     border: none;
+    outline: none;
+    padding-right: 1.4rem;
+    padding-top: 1rem;
+    text-overflow: ellipsis;
+}
+
+textarea.noteCard:focus {
+    background-color: darksalmon;
 }
 
 .noteCard:focus {
     outline: none;
     font-family: Ubuntu;
 }
-
 
 .notesDescContainer {
     display: flex;

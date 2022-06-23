@@ -35,6 +35,9 @@ export default function Navbar({ note, setNote }) {
                 <button className={page === 'plus' && note ? styles.navButtonActive : styles.navButton} onClick={() => {
                     setPage('plus')
                     setNote(!note)
+                    if(note){
+                        setPage('home')
+                    }
                 }}>
                     <FaPlus />
                 </button>

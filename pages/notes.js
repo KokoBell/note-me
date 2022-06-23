@@ -15,7 +15,7 @@ export default function NotesPage() {
 
     const saveNote = () => {
         let currentNote = {
-            _id: session.user.email,
+            email: session.user.email,
             user: session.user.name,
             noteDesc: noteDesc,
             createdAt: new Date()
@@ -51,9 +51,9 @@ export default function NotesPage() {
 
                 <div className={styles.notesSection}>
 
-                    {note && <div className={styles.noteInputSection}>
+                    {note && <div className={styles.notetextareaSection}>
                         <div className={styles.noteDescContainer}>
-                            <input
+                            <textarea
                                 className={styles.noteCard}
                                 onChange={(e) => setNoteDesc(e.target.value)}
                                 onKeyPress={(ev) => {
