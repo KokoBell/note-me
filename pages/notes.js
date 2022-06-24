@@ -1,6 +1,6 @@
 import { useSession } from "next-auth/react"
 import { database } from "../firebaseConfig"
-import { collection, addDoc, getDocs } from "firebase/firestore"
+import { collection, addDoc, getDocs, updateDoc, deleteDoc, doc } from "firebase/firestore"
 import styles from "/styles/Notes.module.css"
 import { useState, useEffect } from "react"
 import Navbar from "./navbar"
@@ -12,15 +12,16 @@ export default function NotesPage() {
     const [noteDesc, setNoteDesc] = useState('')
     const [note, setNote] = useState(false)
     const [notesList, setNotesList] = useState([])
+    const [del, setDel] = useState(false)
 
     const saveNote = () => {
         let currentNote = {
             email: session.user.email,
             user: session.user.name,
             noteDesc: noteDesc,
-            createdAt: new Date()
+            createdAt: new Date().toDateString()
         }
-        notesList.push(currentNote)
+        notesList.unshift(currentNote)
         setNotesList(notesList)
         addDoc(dbInstance, currentNote)
         setNoteDesc('')
@@ -33,15 +34,20 @@ export default function NotesPage() {
                 setNotesList(data.docs.map((item) => {
                     return { ...item.data(), id: item.id }
                 }))
-                console.log(notesList)
             })
     }
 
+    const deleteNote = (docId) => {
+        let noteRef = doc(database, 'notes', docId)
+        deleteDoc(noteRef).then(() => {
+            setDel(false)
+            getNotes()
+        })
+    }
+
     useEffect(() => {
-        getNotes();
-        setTimeout(() => {
-        }, 2000)
-    }, [])
+        getNotes()
+    },[])
 
     return <div className={styles.notesPageConatiner}>
         <Navbar note={note} setNote={setNote} />
@@ -54,13 +60,16 @@ export default function NotesPage() {
                     {note && <div className={styles.notetextareaSection}>
                         <div className={styles.noteDescContainer}>
                             <textarea
+                                onBlur={(ev) => {
+                                    ev.preventDefault()
+                                    saveNote()
+                                }}
                                 className={styles.noteCard}
                                 onChange={(e) => setNoteDesc(e.target.value)}
                                 onKeyPress={(ev) => {
                                     if (ev.key === "Enter") {
-                                        ev.preventDefault();
-                                        console.log(ev.target.value);
-                                        saveNote();
+                                        ev.preventDefault()
+                                        saveNote()
                                     }
                                 }}
 
@@ -69,25 +78,24 @@ export default function NotesPage() {
                     </div>
                     }
 
-                    {notesList.map((note) => {
+                    {notesList.map((noteItem) => {
                         return (
-                            <Draggable key={note.id}>
+                            <Draggable key={noteItem.noteDesc}>
                                 <div
-                                    className={styles.noteCard}
+                                    onClick={() => {
+                                        setDel(true)
+                                        deleteNote(noteItem.id)
+                                    }}
+                                    className={del ? styles.del : styles.noteCard}
                                     onKeyPress={(ev) => {
                                         if (ev.key === "Enter") {
                                             ev.preventDefault()
-                                            console.log(ev.target.value)
                                             getNotes()
                                         }
                                     }
                                     }
-                                    onBlur={(ev) => {
-                                        ev.preventDefault()
-                                        saveNote()
-                                    }}>
-                                    <p>{note.noteDesc}</p>
-                                    <p>{notesList.indexOf(note)}</p>
+                                >
+                                    <p>{noteItem.noteDesc}</p>
                                 </div>
                             </Draggable>
                         )
