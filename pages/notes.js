@@ -12,9 +12,17 @@ export default function NotesPage() {
     const [noteDesc, setNoteDesc] = useState('')
     const [note, setNote] = useState(false)
     const [notesList, setNotesList] = useState([])
-    const [del, setDel] = useState(false)
+    const [position, setPosition] = useState({ x: 0, y: 0 })
+
+    const trackPos = (data) => {
+        setPosition({ x: data.x, y: data.y });
+    }
 
     const saveNote = () => {
+        if (noteDesc === "") {
+            setNote(false)
+            return
+        }
         let currentNote = {
             email: session.user.email,
             user: session.user.name,
@@ -40,14 +48,27 @@ export default function NotesPage() {
     const deleteNote = (docId) => {
         let noteRef = doc(database, 'notes', docId)
         deleteDoc(noteRef).then(() => {
-            setDel(false)
             getNotes()
+        })
+    }
+
+    const updateNote = (docId) => {
+        let currentNote = {
+            email: session.user.email,
+            user: session.user.name,
+            noteDesc: noteDesc,
+            createdAt: new Date().toDateString()
+        }
+        let noteRef = doc(database, 'notes', docId)
+        updateDoc(noteRef, currentNote).then(() => {
+            getNotes()
+            setUpdating(false)
         })
     }
 
     useEffect(() => {
         getNotes()
-    },[])
+    }, [])
 
     return <div className={styles.notesPageConatiner}>
         <Navbar note={note} setNote={setNote} />
@@ -60,6 +81,7 @@ export default function NotesPage() {
                     {note && <div className={styles.notetextareaSection}>
                         <div className={styles.noteDescContainer}>
                             <textarea
+                                autoFocus={true}
                                 onBlur={(ev) => {
                                     ev.preventDefault()
                                     saveNote()
@@ -79,25 +101,46 @@ export default function NotesPage() {
                     }
 
                     {notesList.map((noteItem) => {
-                        return (
-                            <Draggable key={noteItem.noteDesc}>
-                                <div
-                                    onClick={() => {
-                                        setDel(true)
-                                        deleteNote(noteItem.id)
+                        return (<Draggable key={noteItem.noteDesc}
+                            onDrag={(e, data) => trackPos(data)}
+                            onStop={(e) => {
+    
+                            }}>
+                            <div
+                                onClick={() => {
+                                }}
+                                className={styles.noteCard}
+                                onKeyPress={(ev) => {
+                                    if (ev.key === "Enter") {
+                                        ev.preventDefault()
+                                        getNotes()
+                                    }
+                                }
+                                }
+                            >
+                                <p>{noteItem.noteDesc}</p>
+                                
+                            </div>
+                        </Draggable>/*  : <div key={noteItem.noteDesc} className={styles.notetextareaSection}>
+                            <div className={styles.noteDescContainer}>
+                                <textarea
+                                    autoFocus={true}
+                                    onBlur={(ev) => {
+                                        ev.preventDefault()
+                                        //saveNote()
                                     }}
-                                    className={del ? styles.del : styles.noteCard}
+                                    className={styles.noteCard}
+                                    onChange={(e) => setNoteDesc(e.target.value)}
                                     onKeyPress={(ev) => {
                                         if (ev.key === "Enter") {
                                             ev.preventDefault()
-                                            getNotes()
+                                            updateNote(noteItem.id)
                                         }
-                                    }
-                                    }
-                                >
-                                    <p>{noteItem.noteDesc}</p>
-                                </div>
-                            </Draggable>
+                                    }}
+
+                                />
+                            </div>
+                        </div> */
                         )
                     })}
                 </div>

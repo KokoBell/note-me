@@ -20,6 +20,7 @@
 
 .notesPageContainer {
     display: flex;
+    max-height: 100vh;
 }
 
 .notesSection {
