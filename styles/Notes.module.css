@@ -41,17 +41,21 @@
     margin-top: 1.4rem;
 }
 
+.noteCard:hover{
+    
+    box-shadow: 0 0 1rem lightsteelblue;
+}
+
 div.noteCard {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-div.noteCard>p {
-    display: inline-block;
+.noteD {
+    overflow-wrap: break-word;
     word-wrap: break-word;
-    overflow: hidden;
-    max-width: 9.4rem
+    word-break: keep-all;
 }
 
 textarea.noteCard {

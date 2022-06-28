@@ -1,10 +1,11 @@
 import { useSession } from "next-auth/react"
 import { database } from "../firebaseConfig"
-import { collection, addDoc, getDocs, updateDoc, deleteDoc, doc } from "firebase/firestore"
-import styles from "/styles/Notes.module.css"
+import { collection, addDoc, getDocs, updateDoc, deleteDoc, doc, where, query } from "firebase/firestore"
+import styles from "../styles/Notes.module.css"
 import { useState, useEffect } from "react"
-import Navbar from "./navbar"
+import Navbar from "../pages/navbar"
 import Draggable from 'react-draggable'
+
 
 export default function NotesPage() {
     const { data: session } = useSession()
@@ -36,13 +37,15 @@ export default function NotesPage() {
         setNote(false)
     }
 
-    const getNotes = () => {
-        getDocs(dbInstance)
-            .then((data) => {
-                setNotesList(data.docs.map((item) => {
-                    return { ...item.data(), id: item.id }
-                }))
+    const getNotes = async () => {
+        const q = query(dbInstance, where("email", "==", session.user.email))
+        const querySnapshot = await getDocs(q)
+
+        let holder = []
+        querySnapshot.forEach((doc) => {
+                holder.unshift(doc.data())
             })
+        setNotesList(holder)
     }
 
     const deleteNote = (docId) => {
@@ -57,12 +60,11 @@ export default function NotesPage() {
             email: session.user.email,
             user: session.user.name,
             noteDesc: noteDesc,
-            createdAt: new Date().toDateString()
+            updated: new Date().toDateString()
         }
         let noteRef = doc(database, 'notes', docId)
         updateDoc(noteRef, currentNote).then(() => {
             getNotes()
-            setUpdating(false)
         })
     }
 
@@ -104,7 +106,7 @@ export default function NotesPage() {
                         return (<Draggable key={noteItem.noteDesc}
                             onDrag={(e, data) => trackPos(data)}
                             onStop={(e) => {
-    
+
                             }}>
                             <div
                                 onClick={() => {
@@ -118,8 +120,8 @@ export default function NotesPage() {
                                 }
                                 }
                             >
-                                <p>{noteItem.noteDesc}</p>
-                                
+                                <p className={styles.noteD}>{noteItem.noteDesc}</p>
+
                             </div>
                         </Draggable>/*  : <div key={noteItem.noteDesc} className={styles.notetextareaSection}>
                             <div className={styles.noteDescContainer}>

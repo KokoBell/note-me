@@ -6,21 +6,24 @@ import styles from '../styles/Home.module.css'
 import { FaGoogle } from 'react-icons/fa'
 import { FiLogIn } from 'react-icons/fi'
 import { useRouter } from 'next/router'
+import NotesPage from '../components/notes'
 
 export default function Home() {
-  const router = useRouter()
-  const { data: session } = useSession()
-  if(session){
-    router.push('/notes')
+  const { data: session, status } = useSession()
+  if(status==="loading"){
+    return <p>Signing in...</p>
   }
-  return <HomePage />
+  return (<>
+    {session ? <NotesPage /> : <HomePage />}
+  </>
+  )
 }
 
 function HomePage() {
   async function userSignIn() {
-    await signIn("google", { callbackUrl: "/notes" })    
+    await signIn('google', {callBackUrl: "/"})
   }
-  
+
   return (<>
     <Head>
       <title>Note Me</title>
