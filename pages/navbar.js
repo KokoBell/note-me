@@ -5,9 +5,8 @@ import { signOut } from "next-auth/react"
 import Image from "next/image"
 import { useState } from "react"
 
-export default function Navbar({ note, setNote }) {
-    const [page, setPage] = useState('home')
-
+export default function Navbar({ note, setNote, page, setPage, setSecret }) {
+    
     return <ul className={styles.Navigation}>
         <div className={styles.navLogo} onClick={() => {
             setNote(false)

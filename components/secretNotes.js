@@ -1,15 +1,12 @@
-import { useSession } from "next-auth/react"
 import { database } from "../firebaseConfig"
 import { collection, addDoc, getDocs, updateDoc, deleteDoc, doc, where, query } from "firebase/firestore"
-import styles from "../styles/Notes.module.css"
+import styles from "../styles/SecretNotes.module.css"
 import { useState, useEffect } from "react"
 import Navbar from "../pages/navbar"
 import Draggable from 'react-draggable'
 
-
-export default function NotesPage() {
-    const { data: session } = useSession()
-    const dbInstance = collection(database, 'notes')
+export default function SecretNotesPage({ secret, code }) {
+    const dbInstance = collection(database, 'secretNotes')
     const [noteDesc, setNoteDesc] = useState('')
     const [note, setNote] = useState(false)
     const [page, setPage] = useState('home')
@@ -21,8 +18,7 @@ export default function NotesPage() {
             return
         }
         let currentNote = {
-            email: session.user.email,
-            user: session.user.name,
+            code: code,
             noteDesc: noteDesc,
             createdAt: new Date().toDateString()
         }
@@ -31,10 +27,11 @@ export default function NotesPage() {
         addDoc(dbInstance, currentNote)
         setNoteDesc('')
         setNote(false)
+        setPage('home')
     }
 
     const getNotes = async () => {
-        const q = query(dbInstance, where("email", "==", session.user.email))
+        const q = query(dbInstance, where("code", "==", code))
         const querySnapshot = await getDocs(q)
 
         let holder = []
@@ -45,7 +42,7 @@ export default function NotesPage() {
     }
 
     const deleteNote = (docId) => {
-        let noteRef = doc(database, 'notes', docId)
+        let noteRef = doc(database, 'secretNotes', docId)
         deleteDoc(noteRef).then(() => {
             getNotes()
         })
@@ -53,12 +50,11 @@ export default function NotesPage() {
 
     const updateNote = (docId) => {
         let currentNote = {
-            email: session.user.email,
-            user: session.user.name,
+            code: code,
             noteDesc: noteDesc,
             updated: new Date().toDateString()
         }
-        let noteRef = doc(database, 'notes', docId)
+        let noteRef = doc(database, 'secretNotes', docId)
         updateDoc(noteRef, currentNote).then(() => {
             getNotes()
         })
@@ -69,10 +65,10 @@ export default function NotesPage() {
     }, [])
 
     return <div className={styles.notesPageConatiner}>
-        <Navbar note={note} setNote={setNote} page={page} setPage={setPage}/>
+        <Navbar note={note} setNote={setNote} page={page} setPage={setPage} />
         <div className={styles.notesPage}>
-            {session && (<div>
-                <h1> <span className={styles.helloText}>Hello, </span> {session.user.name.split(' ')[0]}</h1>
+            {secret && (<div>
+                <h1> <span className={styles.helloText}>Codename: </span> {code} </h1>
 
                 <div className={styles.notesSection}>
 
@@ -98,7 +94,7 @@ export default function NotesPage() {
                     </div>
                     }
 
-                    {notesList.map((noteItem) => {
+                    {notesList.length != 0 ? notesList.map((noteItem) => {
                         return (<Draggable key={noteItem.noteDesc}
                             onDrag={(e, data) => { }}
                             onStop={(e) => { }}>
@@ -118,12 +114,18 @@ export default function NotesPage() {
                             </div>
                         </Draggable>
                         )
-                    })}
+                    }) : <>
+                        {!note && <div className={styles.noNotesCont}>
+                            <p className={styles.noNotes}>You have no notes</p>
+                            <button className={styles.addNote}
+                                onClick={() => {
+                                    setNote(true)
+                                }}> Add a note </button>
+                        </div>}
+                    </>
+                    }
                 </div>
-
-
             </div>)}
-
         </div>
     </div>
 }
